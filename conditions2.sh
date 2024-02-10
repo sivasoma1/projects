@@ -7,3 +7,10 @@ then
     exit 1 #1-127 anything is error(exit status), 0 means success.
 fi
 yum install mysql -y
+
+if [ $? -eq 0 ]; then
+        echo "MySQL has been installed successfully!"
+else
+	echo "Failed to install MySQL"
+	exit 1
+fi
