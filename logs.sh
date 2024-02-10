@@ -39,12 +39,12 @@ then
     
 fi
 
-yum install mysql -y &>> logfile
+yum install mysql -y &>> $logfile
 
 #$1 is first arugument $2 is second arguement  and so on...
 
 VALIDATE $? "installing mysql"
 
-yum install postfix -y &>> logfile
+yum install postfix -y &>> $logfile
 
 VALIDATE $? "installing postfix"
