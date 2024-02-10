@@ -11,7 +11,8 @@ VALIDATE(){
         echo "the statement is error :please check the given command "
     else
         echo "installation is success  "
-}
+        
+    }
 
 if [ $userid -ne 0 ]
 then 
