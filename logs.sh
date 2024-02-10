@@ -10,14 +10,14 @@
 
 
 
-Date=$(date  +%F-%H-%M-%S)
+Date=$(date +%F-%H-%M-%S)
 userid=$(id -u)
 filename=$0
 logfile=/tmp-$filename-$Date.log
-R=/e31m
-G=/e32m
-B=/e33m
-N=/e0m
+R="\e31m"
+G="\e32m"
+Y="\e33m"
+N="\e0m"
 
 
 VALIDATE(){
