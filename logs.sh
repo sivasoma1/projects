@@ -13,7 +13,7 @@
 Date=$(date +%F-%H-%M-%S)
 userid=$(id -u)
 filename=$0
-logfile=/tmp-$filename-$Date.log
+logfile=/tmp/$filename-$Date.log
 R="\e[31m"
 G="\e[32m"
 Y="\e[33m"
