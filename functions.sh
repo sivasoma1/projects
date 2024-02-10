@@ -25,11 +25,14 @@ fi
 
 yum install mysql -y
 
-VALIDATE $?
+#$1 is first arugument $2 is second arguement  and so on...
+
+VALIDATE $? "installing mysql"
 
 yum install postfix -y
 
-VALIDATE $?
+VALIDATE $? "installing postfix"
+
 
 
 
