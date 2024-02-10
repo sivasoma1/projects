@@ -13,6 +13,7 @@ VALIDATE(){
         exit 1
     else
         echo "installation is SUCCESS  "
+    fi
 }
 
 if [ $userid -ne 0 ]
