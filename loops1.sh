@@ -37,6 +37,6 @@ VALIDATE(){
         
         VALIDATE $? "Installing package $i"
     else
-        echo "$y it is already installed $i"
+        echo -e "$y it is already installed $i"
     fi
 done
