@@ -17,10 +17,10 @@ VALIDATE(){
     if [ $1 -ne 0 ]
 
     then
-        echo "$2 is $R failure $N"
+        echo -e "$2 is $R failure $N"
         exit 1
     else
-        echo "$2 is $G success $N"
+        echo -e "$2 is $G success $N"
     fi
 
 }
@@ -32,6 +32,7 @@ VALIDATE(){
     yum list installed $i &>> $logfile
     if [ $? -ne 0 ]
     then
+        echo -e "$G $i it is going to install"$N
         yum install $i -y &>> $logfile
         
         VALIDATE $? "Installing package $i"
