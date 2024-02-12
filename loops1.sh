@@ -5,7 +5,7 @@ logfile=/tmp/$filename-$date.log
 R="\e[31m" #red colour
 G="\e[32m" #green colour
 Y="\e[33m" #yellow colour
-N="\[0m" # No Color
+N="\e[0m" # No Color
 
 if [  $userid -ne 0 ]
 then
@@ -32,7 +32,7 @@ VALIDATE(){
     yum list installed $i &>> $logfile
     if [ $? -ne 0 ]
     then
-        echo -e "$G $i it is going to install"$N
+        echo -e "$G $i it is going to install" $N
         yum install $i -y &>> $logfile
         
         VALIDATE $? "Installing package $i"
