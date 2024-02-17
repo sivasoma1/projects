@@ -19,7 +19,7 @@ do
 
     if [ $Usage -gt $Disk_Threshold ]; 
     then
-        message+="WARNING: $partition has reached its limit. $Usage \n"
+        message+="WARNING: $partition has reached its limit. $Usage \n "
         
 
     fi
