@@ -12,13 +12,14 @@ Disk_Threshold=1
 while IFS= read line
 do
 # it is for to check the disk usage
-    Usage=($(echo $line | awk '{print $7}' | cut -d % -f1))
+    Usage=$(echo $line | awk '{print $7}' | cut -d % -f1)
     
    #Checking if the usage is greater than threshold, then send an email 
-    partion=($(echo $line | awk '{print $1}'))
+    partion=$(echo $line | awk '{print $1}')
 
     if [ $Usage -ge $Disk_Threshold ]; then
         echo "WARNING: Disk usage is over threshold of $Disk_Threshold%. Current
+        exit 1
 
     fi
     
