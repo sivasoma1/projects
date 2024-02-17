@@ -26,6 +26,8 @@ do
     
 done <<< $Disk_Usage
 
-echo "message:$message"
+echo -e "message:$message"
+echo "message" | mail -s "high alert" sivanaidusoma@gmail.com
+
 
 
