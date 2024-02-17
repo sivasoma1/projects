@@ -17,11 +17,15 @@ do
    #Checking if the usage is greater than threshold, then send an email 
     partition=$(echo $line | awk '{print $1}')
 
-    if [ $Usage -ge $Disk_Threshold ]; then
+    if [ $Usage -ge $Disk_Threshold ]; 
+    then
         message+= "WARNING: $partition has reached its limit. $Usage \n"
         
 
     fi
     
 done <<< $Disk_Usage
+
+echo "message:$message"
+
 
