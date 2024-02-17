@@ -17,12 +17,10 @@ do
    #Checking if the usage is greater than threshold, then send an email 
     partion=($(echo $line | awk '{print $1}'))
 
-    if [ "$Usage" -ge "$Disk_Threshold" ]; then
+    if [ $Usage -ge $Disk_Threshold ]; then
         echo "WARNING: Disk usage is over threshold of $Disk_Threshold%. Current
 
     fi
     
 done <<< $Disk_Usage
-
-
 
