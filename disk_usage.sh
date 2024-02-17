@@ -12,7 +12,7 @@ message=""
 while IFS= read line
 do
 # it is for to check the disk usage
-    Usage=$(echo $line | awk '{print $7}' | cut -d % -f1)
+    Usage=$(echo $line | awk '{print $6}' | cut -d % -f1)
     
    #Checking if the usage is greater than threshold, then send an email 
     partition=$(echo $line | awk '{print $1}')
