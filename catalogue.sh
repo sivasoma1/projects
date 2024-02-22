@@ -4,7 +4,7 @@ log_dir=/tmp
 Date=$(date +%F:H:M:S)
 filename=$0
 log_file=$log_dir/$filename-$Date.log
-userid = $(id -u)
+userid =$(id -u)
 
 $R= "\e[31m"
 
