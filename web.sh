@@ -18,7 +18,7 @@ then
 # else
 #     echo "INFO:: You are root user"
 fi
-# this function should validate the previous command and inform user it is success or failure
+# this function should VALIDATE the previous command and inform user it is success or failure
 VALIDATE(){
     #$1 --> it will receive the argument1
     if [ $1 -ne 0 ];
@@ -34,37 +34,37 @@ VALIDATE(){
 
 yum install nginx -y &>>$LOGFILE
 
-validate $? "Installing Nginx package"
+VALIDATE $? "Installing Nginx package"
 
 systemctl enable nginx &>>$LOGFILE
 
-validate $? "enabling the nginx"
+VALIDATE $? "enabling the nginx"
 
 systemctl start nginx &>>$LOGFILE
 
-validate $? "starting nginx"
+VALIDATE $? "starting nginx"
 
 
 
 rm -rf /usr/share/nginx/html/* &>>$LOGFILE
-validate $? "removing the default html files"
+VALIDATE $? "removing the default html files"
 
 curl -o /tmp/web.zip https://roboshop-builds.s3.amazonaws.com/web.zip &>>$LOGFILE
 
-validate $? " downloading web artifact"
+VALIDATE $? " downloading web artifact"
 
 cd /usr/share/nginx/html &>>$LOGFILE
 
-validate $? "moving to default htmldirectory"
+VALIDATE $? "moving to default htmldirectory"
 
 unzip /tmp/web.zip &>>$LOGFILE
 
-validate $? "unzipping"
+VALIDATE $? "unzipping"
 
 cp /home/centos/projects/roboshop.conf /etc/nginx/default.d/roboshop.conf &>>$LOGFILE
-validate $? "coping roboshop.config"
+VALIDATE $? "coping roboshop.config"
 
 
 systemctl restart nginx &>>$LOGFILE
 
-validate $? "restarting"
+VALIDATE $? "restarting"
