@@ -36,11 +36,12 @@ VALIDATE $? "NodeJS Installation"
 yum install nodejs -y &>>$LOGFILE
 VALIDATE $? "Install NodeJS"
 
-useradd roboshop &>>$LOGFILE
-if [ $? -ne 0 ];
+id roboshop &>>$LOGFILE
+if [ $? -eq 0 ];
 then
     VALIDATE $? "user exists"
 else
+    useradd roboshop &>>$LOGFILE
     VALIDATE $? "user creating"
 fi
 
