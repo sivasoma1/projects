@@ -32,7 +32,7 @@ then
 #     echo "INFO:: You are root user"
 fi
 
-cp /home/centos/projects/mongo.repo vim /etc/yum.repos.d/mongo.repo &>>$LOGFILE
+cp /home/centos/projects/mongo.repo /etc/yum.repos.d/mongo.repo &>>$LOGFILE
 
 VALIDATE $? "cpopingy the mongo.repo file"
 
