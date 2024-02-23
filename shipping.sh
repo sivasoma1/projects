@@ -32,41 +32,41 @@ then
 #     echo "INFO:: You are root user"
 fi
 
-yum install maven -y &>>$log_file
+yum install maven -y &>>$LOGFILE
 
 validate $? "installing"
 
-useradd roboshop &>>$log_file
+useradd roboshop &>>$LOGFILE
 validate $? "creating user"
 
-mkdir /app &>>$log_file
+mkdir /app &>>$LOGFILE
 validate $? "creating app directory"
 
-curl -L -o /tmp/shipping.zip https://roboshop-builds.s3.amazonaws.com/shipping.zip  &>>$log_file
+curl -L -o /tmp/shipping.zip https://roboshop-builds.s3.amazonaws.com/shipping.zip  &>>$LOGFILE
 validate $? "downloading shipping module"
-cd /app &>>$log_file
+cd /app &>>$LOGFILE
 validate $? "change directory"
 
-unzip /tmp/shipping.zip -d /app &>>$log_file
+unzip /tmp/shipping.zip -d /app &>>$LOGFILE
 validate $? "extracting shipping package"
 
-cd /app &>>$log_file
+cd /app &>>$LOGFILE
 validate $? "change directory to app directory"
 
-mvn clean package &>>$log_file
+mvn clean package &>>$LOGFILE
 
 mv target/shipping-1.0.jar shipping.jar
 
 
-cp /home/centos/projects/shipping.service /etc/systemd/system/shipping.service &>>$log_file
+cp /home/centos/projects/shipping.service /etc/systemd/system/shipping.service &>>$LOGFILE
 validate $? "copy service file"
 
-systemctl daemon-reload &>>$log_file
+systemctl daemon-reload &>>$LOGFILE
 validate $? "deamon"
 
-systemctl enable shipping &>>$log_file
+systemctl enable shipping &>>$LOGFILE
 validate $? "enable"
 
-systemctl start shipping &>>$log_file
+systemctl start shipping &>>$LOGFILE
 validate $? "starting"
 

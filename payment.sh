@@ -32,43 +32,43 @@ then
 #     echo "INFO:: You are root user"
 fi
 
-yum install python36 gcc python3-devel -y &>>$log_file
+yum install python36 gcc python3-devel -y &>>$LOGFILE
 validate $? "installing python"
 
-useradd roboshop &>>$log_file
+useradd roboshop &>>$LOGFILE
 validate $? "useradd"
 
-mkdir /app &>>$log_file
+mkdir /app &>>$LOGFILE
 
 validate $? "creating an app directory"
 
-curl -L -o /tmp/payment.zip https://roboshop-builds.s3.amazonaws.com/payment.zip &>>$log_file
+curl -L -o /tmp/payment.zip https://roboshop-builds.s3.amazonaws.com/payment.zip &>>$LOGFILE
 
 validate $? "downloading payment module"
 
-cd /app &>>$log_file
+cd /app &>>$LOGFILE
 validate $? "changing to the app dir"
 
-unzip /tmp/payment.zip &>>$log_file
+unzip /tmp/payment.zip &>>$LOGFILE
 validate $? "unzipping"
 
-cd /app &>>$log_file
+cd /app &>>$LOGFILE
 validate $? "changing  back to the app dir"
 
 
-pip3.6 install -r requirements.txt &>>$log_file
+pip3.6 install -r requirements.txt &>>$LOGFILE
 
 validate $? "Installing Python dependencies with pip"
 
-cp /home/centos/projects/payment.service /etc/systemd/system/payment.service &>>$log_file
+cp /home/centos/projects/payment.service /etc/systemd/system/payment.service &>>$LOGFILE
 validate $? "coping"
 
-systemctl daemon-reload &>>$log_file
+systemctl daemon-reload &>>$LOGFILE
 validate $? "daemon"
 
-systemctl enable payment &>>$log_file
+systemctl enable payment &>>$LOGFILE
 validate $? "enable"
 
-systemctl start payment &>>$log_file
+systemctl start payment &>>$LOGFILE
 
 validate $? "starting"

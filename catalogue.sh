@@ -33,47 +33,47 @@ then
 fi
 
 
-curl -sL https://rpm.nodesource.com/setup_lts.x | bash &>>$log_file
+curl -sL https://rpm.nodesource.com/setup_lts.x | bash &>>$LOGFILE
 validate $? "NodeJS Installation"
 
-yum install nodejs -y &>>$log_file
+yum install nodejs -y &>>$LOGFILE
 validate $? "Install NodeJS"
 
-useradd roboshop &>>$log_file
+useradd roboshop &>>$LOGFILE
 validate $? "user creating"
 
-mkdir /app &>>$log_file
+mkdir /app &>>$LOGFILE
 validate $? "create a file"
 
-curl -o /tmp/catalogue.zip https://roboshop-builds.s3.amazonaws.com/catalogue.zip &>>$log_file
+curl -o /tmp/catalogue.zip https://roboshop-builds.s3.amazonaws.com/catalogue.zip &>>$LOGFILE
 validate $? "dowmloading the artifacts"
 
-cd /app &>>$log_file
+cd /app &>>$LOGFILE
 validate $? "moving to the  app directory"
 
-unzip /tmp/catalogue.zip &>>$log_file
+unzip /tmp/catalogue.zip &>>$LOGFILE
 validate $? "unzipping the file"
 
-cd /app &>>$log_file
+cd /app &>>$LOGFILE
 validate $?
 
-npm install &>>$log_file
+npm install &>>$LOGFILE
 validate $? "installing the packages"
 
-cp /home/centos/projects/catalogue.service /etc/systemd/system/catalogue.service &>>$log_file
+cp /home/centos/projects/catalogue.service /etc/systemd/system/catalogue.service &>>$LOGFILE
 validate $? "coping"
-systemctl daemon-reload &>>$log_file
+systemctl daemon-reload &>>$LOGFILE
 validate $? " reloading"
-systemctl enable catalogue &>>$log_file
+systemctl enable catalogue &>>$LOGFILE
 validate $? "enabling"
-systemctl start catalogue &>>$log_file
+systemctl start catalogue &>>$LOGFILE
 validate $? "starting"
 
-cp /home/centos/projects/mongo.repo /etc/yum.repos.d/mongo.repo &>>$log_file
+cp /home/centos/projects/mongo.repo /etc/yum.repos.d/mongo.repo &>>$LOGFILE
 validate $?  "adding mongo repo"
 
-yum install mongodb-org-shell -y &>>$log_file
+yum install mongodb-org-shell -y &>>$LOGFILE
 validate $? "installing"
 
-mongo --host mongodb.sssankar.site </app/schema/catalogue.js &>>$log_file
+mongo --host mongodb.sssankar.site </app/schema/catalogue.js &>>$LOGFILE
 validate $? "connecting"

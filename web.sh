@@ -32,39 +32,39 @@ then
 #     echo "INFO:: You are root user"
 fi
 
-yum install nginx -y &>>$log_file
+yum install nginx -y &>>$LOGFILE
 
 validate $? "Installing Nginx package"
 
-systemctl enable nginx &>>$log_file
+systemctl enable nginx &>>$LOGFILE
 
 validate $? "enabling the nginx"
 
-systemctl start nginx &>>$log_file
+systemctl start nginx &>>$LOGFILE
 
 validate $? "starting nginx"
 
 
 
-rm -rf /usr/share/nginx/html/* &>>$log_file
+rm -rf /usr/share/nginx/html/* &>>$LOGFILE
 validate $? "removing the default html files"
 
-curl -o /tmp/web.zip https://roboshop-builds.s3.amazonaws.com/web.zip &>>$log_file
+curl -o /tmp/web.zip https://roboshop-builds.s3.amazonaws.com/web.zip &>>$LOGFILE
 
 validate $? " downloading web artifact"
 
-cd /usr/share/nginx/html &>>$log_file
+cd /usr/share/nginx/html &>>$LOGFILE
 
 validate $? "moving to default htmldirectory"
 
-unzip /tmp/web.zip &>>$log_file
+unzip /tmp/web.zip &>>$LOGFILE
 
 validate $? "unzipping"
 
-cp /home/centos/projects/roboshop.conf /etc/nginx/default.d/roboshop.conf &>>$log_file
+cp /home/centos/projects/roboshop.conf /etc/nginx/default.d/roboshop.conf &>>$LOGFILE
 validate $? "coping roboshop.config"
 
 
-systemctl restart nginx &>> $log_file
+systemctl restart nginx &>>$LOGFILE
 
 $validate $? "restarting"

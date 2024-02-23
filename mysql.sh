@@ -32,22 +32,22 @@ then
 #     echo "INFO:: You are root user"
 fi
 
-yum module disable mysql -y &>>$log_file
+yum module disable mysql -y &>>$LOGFILE
 
 validate $? "Disabling MySQL YUM Module"
 
-cp /home/centos/projects/mysql.repo /etc/yum.repos.d/mysql.repo &>>$log_file
+cp /home/centos/projects/mysql.repo /etc/yum.repos.d/mysql.repo &>>$LOGFILE
 validate $? "coping"
 
-yum install mysql-community-server -y &>>log_file
+yum install mysql-community-server -y &>>LOGFILE
 validate $? "installing"
 
-systemctl enable mysqld &>>log_file
+systemctl enable mysqld &>>LOGFILE
 validate $? "enable"
 
 
 
-systemctl start mysqld &>>log_file
+systemctl start mysqld &>>LOGFILE
 validate $? "starting"
 
 mysql_secure_installation --set-root-pass RoboShop@1

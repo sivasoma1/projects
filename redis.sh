@@ -34,28 +34,28 @@ fi
 
 
 
-yum install https://rpms.remirepo.net/enterprise/remi-release-8.rpm -y &>>$log_file
+yum install https://rpms.remirepo.net/enterprise/remi-release-8.rpm -y &>>$LOGFILE
 
 validate $? "installing packages redis"
 
-yum module enable redis:remi-6.2 -y &>>$log_file
+yum module enable redis:remi-6.2 -y &>>$LOGFILE
 validate $? "enabling"
 
 
-yum install redis -y &>>$log_file
+yum install redis -y &>>$LOGFILE
 
 validate $? "installing"
 
 
-sed -i '/s/127.0.0.1/0.0.0.0/g' /etc/redis.conf /etc/redis/redis.conf &>>$log_file
+sed -i '/s/127.0.0.1/0.0.0.0/g' /etc/redis.conf /etc/redis/redis.conf &>>$LOGFILE
 
 validate $? "changing bind address to 0.0.0.0 in config file"
 
-systemctl enable redis &>>$log_file
+systemctl enable redis &>>$LOGFILE
 validate $? "enabling"
 
 
 
-systemctl start redis &>>$log_file
+systemctl start redis &>>$LOGFILE
 validate $? "starting service"
 

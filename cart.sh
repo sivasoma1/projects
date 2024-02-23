@@ -33,33 +33,33 @@ then
 fi
 
 
-curl -sL https://rpm.nodesource.com/setup_lts.x | bash &>>$log_file
+curl -sL https://rpm.nodesource.com/setup_lts.x | bash &>>$LOGFILE
 
 validate $?  "Installing NodeJS via Nodesource"
 
-yum install nodejs -y &>>$log_file
+yum install nodejs -y &>>$LOGFILE
 
 validate  $?  "Installing NodeJS from YUM repository"
 
-useradd roboshop &>>$log_file
+useradd roboshop &>>$LOGFILE
 
 validate $? "adding roboshop user"
 
-mkdir /app &>>$log_file
+mkdir /app &>>$LOGFILE
 
 
 validate $? "creating app directory"
 
-curl -L -o /tmp/cart.zip https://roboshop-builds.s3.amazonaws.com/cart.zip &>>$log_file
+curl -L -o /tmp/cart.zip https://roboshop-builds.s3.amazonaws.com/cart.zip &>>$LOGFILE
 validate $? "Downloading cart source code"
 
-cd /app  &>>$log_file
+cd /app  &>>$LOGFILE
 validate $? "moving"
 
-npm install &>>$log_file
+npm install &>>$LOGFILE
 validate $? "Running npm install in the app folder"
 
-cp /home/centos/projects/cart.service /etc/systemd/system/cart.service &>>log_file
+cp /home/centos/projects/cart.service /etc/systemd/system/cart.service &>>LOGFILE
 validate $? "moving"
 
 

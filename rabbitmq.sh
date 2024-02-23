@@ -32,17 +32,17 @@ then
 #     echo "INFO:: You are root user"
 fi
 
-curl -s https://packagecloud.io/install/repositories/rabbitmq/erlang/script.rpm.sh &>>$log_file| bash
+curl -s https://packagecloud.io/install/repositories/rabbitmq/erlang/script.rpm.sh &>>$LOGFILE| bash
 validate $? "downloading  rabbitMQ repo script"
-curl -s https://packagecloud.io/install/repositories/rabbitmq/rabbitmq-server/script.rpm.sh | bash &>>$log_file
+curl -s https://packagecloud.io/install/repositories/rabbitmq/rabbitmq-server/script.rpm.sh | bash &>>$LOGFILE
 validate $? "downloading  rabbitMQ repo script"
-yum install rabbitmq-server -y  &>>$log_file
+yum install rabbitmq-server -y  &>>$LOGFILE
 validate $? "Installing RabbitMQ Server"
-systemctl enable rabbitmq-server &>>$log_file
+systemctl enable rabbitmq-server &>>$LOGFILE
 validate $? "enabling"
-systemctl start rabbitmq-server &>>$log_file
+systemctl start rabbitmq-server &>>$LOGFILE
 validate $? "starting"
-rabbitmqctl add_user roboshop roboshop123 &>>$log_file
+rabbitmqctl add_user roboshop roboshop123 &>>$LOGFILE
 validate $? "creating user and passwd"
-rabbitmqctl set_permissions -p / roboshop ".*" ".*" ".*" &>>$log_file
+rabbitmqctl set_permissions -p / roboshop ".*" ".*" ".*" &>>$LOGFILE
 validate $? "permissions"

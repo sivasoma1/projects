@@ -32,28 +32,28 @@ then
 #     echo "INFO:: You are root user"
 fi
 
-cp /home/centos/projects/mongo.repo vim /etc/yum.repos.d/mongo.repo &>>$log_file
+cp /home/centos/projects/mongo.repo vim /etc/yum.repos.d/mongo.repo &>>$LOGFILE
 
 validate $? "cpopingy the mongo.repo file"
 
-yum install mongodb-org -y  &>>$log_file
+yum install mongodb-org -y  &>>$LOGFILE
 
 validate $? "installing mongodb"
 
-systemctl enable mongod &>>$log_file
+systemctl enable mongod &>>$LOGFILE
 
 
 validate $? "enabling mongodb"
 
-systemctl start mongod &>>$log_file
+systemctl start mongod &>>$LOGFILE
 
 validate $? "starting mongodb"
 
-sed -i '/s/127.0.0.1/0.0.0.0/g' /etc/mongod.conf &>>$log_file
+sed -i '/s/127.0.0.1/0.0.0.0/g' /etc/mongod.conf &>>$LOGFILE
 
 validate $? " updating"
 
 
-systemctl restart mongod &>>$log_file
+systemctl restart mongod &>>$LOGFILE
 
 validate $? "restarting"

@@ -32,64 +32,64 @@ then
 #     echo "INFO:: You are root user"
 fi
 
-yum install golang -y &>>$log_file
+yum install golang -y &>>$LOGFILE
 
 validate $? "installing golang "
 
-useradd roboshop &>>$log_file
+useradd roboshop &>>$LOGFILE
 
 validate $? "creating an user"
 
-mkdir /app &>>$log_file
+mkdir /app &>>$LOGFILE
 validate $? "creating a directory"
 
-curl -L -o /tmp/dispatch.zip https://roboshop-builds.s3.amazonaws.com/dispatch.zip &>>$log_file
+curl -L -o /tmp/dispatch.zip https://roboshop-builds.s3.amazonaws.com/dispatch.zip &>>$LOGFILE
 validate $? "downloading dispatch"
 
-cd /app &>>$log_file 
+cd /app &>>$LOGFILE 
 validate $? "creating a directory"
 
-unzip /tmp/dispatch.zip &>>$log_file
+unzip /tmp/dispatch.zip &>>$LOGFILE
 
 validate $? "extracting the zip file"
 
-cd /app &>>$log_file
+cd /app &>>$LOGFILE
 validate $? "re switching to that directory"
 
-go mod init dispatch &>>$log_file
+go mod init dispatch &>>$LOGFILE
 validae $? "init"
 
-go get &>>$log_file
+go get &>>$LOGFILE
 
 validate $? "get"
 
-go build &>>$log_file
+go build &>>$LOGFILE
 
 validate $? "building the application"
 
-systemctl daemon-reload &>>$log_file
+systemctl daemon-reload &>>$LOGFILE
 validate $? "To load the service"
 
-systemctl enable dispatch &>>$log_file
+systemctl enable dispatch &>>$LOGFILE
 
 validate $?  "Enable the service at startup" 
 
-systemctl start dispatch &>>$log_file
+systemctl start dispatch &>>$LOGFILE
 
 validate  $? "Starting the service"
 
-cp /home/centos/projects/dispatch.service /etc/systemd/system/dispatch.service &>>$log_file
+cp /home/centos/projects/dispatch.service /etc/systemd/system/dispatch.service &>>$LOGFILE
 
 validate $? "coping"
 
-systemctl daemon-reload &>>$log_file
+systemctl daemon-reload &>>$LOGFILE
 
 validate $? "loading"
 
-systemctl enable dispatch &>>$log_file 
+systemctl enable dispatch &>>$LOGFILE 
 
 validate $? "enbale"
 
-systemctl start dispatch &>>$log_file
+systemctl start dispatch &>>$LOGFILE
 validate $? "starting"
 

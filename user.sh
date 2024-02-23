@@ -32,25 +32,25 @@ then
 #     echo "INFO:: You are root user"
 fi
 
-curl -sL https://rpm.nodesource.com/setup_lts.x | bash &>>$log_file
+curl -sL https://rpm.nodesource.com/setup_lts.x | bash &>>$LOGFILE
 validate $? "Installing NodeJS via Nodesource"
 
-yum install nodejs -y &>>$log_file
+yum install nodejs -y &>>$LOGFILE
 validate $? "installing nodeJs
 
-useradd roboshop &>>$log_file
+useradd roboshop &>>$LOGFILE
 validate $? "Creating User roboshop"
 
-mkdir /app &>> $log_file
+mkdir /app &>> $LOGFILE
 
 validate $? "Creating App Directory"
 
 
-cd /app &>>$log_file
+cd /app &>>$LOGFILE
 
 validate $? "change directory"
 
-curl -L -o /tmp/user.zip https://roboshop-builds.s3.amazonaws.com/user.zip &>>$log_file
+curl -L -o /tmp/user.zip https://roboshop-builds.s3.amazonaws.com/user.zip &>>$LOGFILE
 
 validate $? "Downloading RoboShop User Build"
 
@@ -58,32 +58,32 @@ cd /app
 
 validate $? "Change to app dir and unpack the zip file"
 
-unzip -q /tmp/user.zip &>>$log_file
+unzip -q /tmp/user.zip &>>$LOGFILE
 validate $? "unzipping"
 
 cd /app 
 validate $? "changing  back to app folder"
 
-npm install &>>$log_file
+npm install &>>$LOGFILE
 validate $? "Running npm install in app folder"
 
-cp /home/centos/projects/user.service  /etc/systemd/system/user.service &>>$log_file
+cp /home/centos/projects/user.service  /etc/systemd/system/user.service &>>$LOGFILE
 validate $? "Copy user service to systemd location"
 
-systemctl daemon-reload &>>$log_file
+systemctl daemon-reload &>>$LOGFILE
 validate $? "reload"
 
-systemctl enable user &>>$log_file
+systemctl enable user &>>$LOGFILE
 validate $? "enable"
 
-systemctl start user &>>$log_file
+systemctl start user &>>$LOGFILE
 validate  $? "Starting user service"
 
 cp /home/centos/projects/mongo.repo /etc/yum.repos.d/mongo.repo
 validate $? "coping"
 
-yum install mongodb-org-shell -y &>>$log_file
+yum install mongodb-org-shell -y &>>$LOGFILE
 validate $? "Install MongoDB shell"
 
-mongo --host mongodb.sssankar.site </app/schema/user.js &>>$log_file
+mongo --host mongodb.sssankar.site </app/schema/user.js &>>$LOGFILE
 validate $? "Creating DB and Collections using mongo script"
