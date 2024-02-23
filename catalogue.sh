@@ -37,7 +37,13 @@ yum install nodejs -y &>>$LOGFILE
 VALIDATE $? "Install NodeJS"
 
 useradd roboshop &>>$LOGFILE
-VALIDATE $? "user creating"
+if [ $? -ne 0 ];
+then
+    VALIDATE $? "user exists"
+else
+    VALIDATE $? "user creating"
+fi
+
 
 mkdir /app &>>$LOGFILE
 VALIDATE $? "create a file"
