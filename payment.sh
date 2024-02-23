@@ -1,74 +1,74 @@
 #!/bin/bash
 
-log_dir=/tmp
-Date=$(date +%F:H:M:S)
-filename=$0
-log_file=$log_dir/$filename-$Date.log
-userid = $(id -u)
+# our program goal is to install mysql
 
-$R= "\e[31m"
+DATE=$(date +%F)
+SCRIPT_NAME=$0
+LOGFILE=/tmp/$SCRIPT_NAME-$DATE.log
 
-$G= "\e[32m"
+R="\e[31m"
+G="\e[32m"
+N="\e[0m"
 
-$Y= "\e[33m"
-
-$N= "\e[0m"
-
-
-
-if [ $userid -ne 0 ];
+# this function should validate the previous command and inform user it is success or failure
+VALIDATE(){
+    #$1 --> it will receive the argument1
+    if [ $1 -ne 0 ]
     then
-        echo "Error: $R Root user $N"
+        echo -e "$2 ... $R FAILURE $N"
         exit 1
-fi
-validate() {
-
-    if [ $1 -ne 0 ];
-        then 
-            echo "$1 $R Failure $N"
-            exit 1
-        else
-            echo "$1 $G Success $N"
+    else
+        echo -e "$2 ... $G SUCCESS $N"
     fi
 }
 
-yum install python36 gcc python3-devel -y
+USERID=$(id -u)
+
+if [ $USERID -ne 0 ]
+then
+    echo "ERROR:: Please run this script with root access"
+    exit 1
+# else
+#     echo "INFO:: You are root user"
+fi
+
+yum install python36 gcc python3-devel -y &>>$log_file
 validate $? "installing python"
 
-useradd roboshop
+useradd roboshop &>>$log_file
 validate $? "useradd"
 
-mkdir /app 
+mkdir /app &>>$log_file
 
 validate $? "creating an app directory"
 
-curl -L -o /tmp/payment.zip https://roboshop-builds.s3.amazonaws.com/payment.zip
+curl -L -o /tmp/payment.zip https://roboshop-builds.s3.amazonaws.com/payment.zip &>>$log_file
 
 validate $? "downloading payment module"
 
-cd /app 
+cd /app &>>$log_file
 validate $? "changing to the app dir"
 
-unzip /tmp/payment.zip
+unzip /tmp/payment.zip &>>$log_file
 validate $? "unzipping"
 
-cd /app 
+cd /app &>>$log_file
 validate $? "changing  back to the app dir"
 
 
-pip3.6 install -r requirements.txt
+pip3.6 install -r requirements.txt &>>$log_file
 
 validate $? "Installing Python dependencies with pip"
 
-cp /home/centos/projects/payment.service /etc/systemd/system/payment.service
+cp /home/centos/projects/payment.service /etc/systemd/system/payment.service &>>$log_file
 validate $? "coping"
 
-systemctl daemon-reload
+systemctl daemon-reload &>>$log_file
 validate $? "daemon"
 
-systemctl enable payment
+systemctl enable payment &>>$log_file
 validate $? "enable"
 
-systemctl start payment
+systemctl start payment &>>$log_file
 
 validate $? "starting"

@@ -1,36 +1,36 @@
 #!/bin/bash
 
-log_dir=/tmp
-Date=$(date +%F:H:M:S)
-filename=$0
-log_file=$log_dir/$filename-$Date.log
-userid = $(id -u)
+# our program goal is to install mysql
 
-$R= "\e[31m"
+DATE=$(date +%F)
+SCRIPT_NAME=$0
+LOGFILE=/tmp/$SCRIPT_NAME-$DATE.log
 
-$G= "\e[32m"
+R="\e[31m"
+G="\e[32m"
+N="\e[0m"
 
-$Y= "\e[33m"
-
-$N= "\e[0m"
-
-
-
-if [ $userid -ne 0 ];
+# this function should validate the previous command and inform user it is success or failure
+VALIDATE(){
+    #$1 --> it will receive the argument1
+    if [ $1 -ne 0 ]
     then
-        echo "Error: $R Root user $N"
+        echo -e "$2 ... $R FAILURE $N"
         exit 1
-fi
-validate() {
-
-    if [ $1 -ne 0 ];
-        then 
-            echo "$1 $R Failure $N"
-            exit 1
-        else
-            echo "$1 $G Success $N"
+    else
+        echo -e "$2 ... $G SUCCESS $N"
     fi
 }
+
+USERID=$(id -u)
+
+if [ $USERID -ne 0 ]
+then
+    echo "ERROR:: Please run this script with root access"
+    exit 1
+# else
+#     echo "INFO:: You are root user"
+fi
 
 yum module disable mysql -y &>>$log_file
 

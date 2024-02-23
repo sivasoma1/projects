@@ -1,48 +1,48 @@
 #!/bin/bash
 
-log_dir=/tmp
-Date=$(date +%F:H:M:S)
-filename=$0
-log_file=$log_dir/$filename-$Date.log
-userid = $(id -u)
+# our program goal is to install mysql
 
-$R= "\e[31m"
+DATE=$(date +%F)
+SCRIPT_NAME=$0
+LOGFILE=/tmp/$SCRIPT_NAME-$DATE.log
 
-$G= "\e[32m"
+R="\e[31m"
+G="\e[32m"
+N="\e[0m"
 
-$Y= "\e[33m"
-
-$N= "\e[0m"
-
-
-
-if [ $userid -ne 0 ];
+# this function should validate the previous command and inform user it is success or failure
+VALIDATE(){
+    #$1 --> it will receive the argument1
+    if [ $1 -ne 0 ]
     then
-        echo "Error: $R Root user $N"
+        echo -e "$2 ... $R FAILURE $N"
         exit 1
-fi
-validate() {
-
-    if [ $1 -ne 0 ];
-        then 
-            echo "$1 $R Failure $N"
-            exit 1
-        else
-            echo "$1 $G Success $N"
+    else
+        echo -e "$2 ... $G SUCCESS $N"
     fi
 }
 
-curl -s https://packagecloud.io/install/repositories/rabbitmq/erlang/script.rpm.sh | bash
+USERID=$(id -u)
+
+if [ $USERID -ne 0 ]
+then
+    echo "ERROR:: Please run this script with root access"
+    exit 1
+# else
+#     echo "INFO:: You are root user"
+fi
+
+curl -s https://packagecloud.io/install/repositories/rabbitmq/erlang/script.rpm.sh &>>$log_file| bash
 validate $? "downloading  rabbitMQ repo script"
-curl -s https://packagecloud.io/install/repositories/rabbitmq/rabbitmq-server/script.rpm.sh | bash
+curl -s https://packagecloud.io/install/repositories/rabbitmq/rabbitmq-server/script.rpm.sh | bash &>>$log_file
 validate $? "downloading  rabbitMQ repo script"
-yum install rabbitmq-server -y 
+yum install rabbitmq-server -y  &>>$log_file
 validate $? "Installing RabbitMQ Server"
-systemctl enable rabbitmq-server
+systemctl enable rabbitmq-server &>>$log_file
 validate $? "enabling"
-systemctl start rabbitmq-server
+systemctl start rabbitmq-server &>>$log_file
 validate $? "starting"
-rabbitmqctl add_user roboshop roboshop123
+rabbitmqctl add_user roboshop roboshop123 &>>$log_file
 validate $? "creating user and passwd"
-rabbitmqctl set_permissions -p / roboshop ".*" ".*" ".*"
+rabbitmqctl set_permissions -p / roboshop ".*" ".*" ".*" &>>$log_file
 validate $? "permissions"
