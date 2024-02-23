@@ -10,7 +10,7 @@ R="\e[31m"
 G="\e[32m"
 N="\e[0m"
 
-# this function should validate the previous command and inform user it is success or failure
+# this function should VALIDATE the previous command and inform user it is success or failure
 VALIDATE(){
     #$1 --> it will receive the argument1
     if [ $1 -ne 0 ]
@@ -34,24 +34,24 @@ fi
 
 yum module disable mysql -y &>>$LOGFILE
 
-validate $? "Disabling MySQL YUM Module"
+VALIDATE $? "Disabling MySQL YUM Module"
 
 cp /home/centos/projects/mysql.repo /etc/yum.repos.d/mysql.repo &>>$LOGFILE
-validate $? "coping"
+VALIDATE $? "coping"
 
 yum install mysql-community-server -y &>>LOGFILE
-validate $? "installing"
+VALIDATE $? "installing"
 
 systemctl enable mysqld &>>LOGFILE
-validate $? "enable"
+VALIDATE $? "enable"
 
 
 
 systemctl start mysqld &>>LOGFILE
-validate $? "starting"
+VALIDATE $? "starting"
 
 mysql_secure_installation --set-root-pass RoboShop@1
-validate $? "Setting root password for MySQL Server"
+VALIDATE $? "Setting root password for MySQL Server"
 
 mysql -uroot -pRoboShop@1
-validate $? "Logging into MySQL as root with the new password"
+VALIDATE $? "Logging into MySQL as root with the new password"

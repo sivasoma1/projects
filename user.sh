@@ -10,7 +10,7 @@ R="\e[31m"
 G="\e[32m"
 N="\e[0m"
 
-# this function should validate the previous command and inform user it is success or failure
+# this function should VALIDATE the previous command and inform user it is success or failure
 VALIDATE(){
     #$1 --> it will receive the argument1
     if [ $1 -ne 0 ]
@@ -33,57 +33,57 @@ then
 fi
 
 curl -sL https://rpm.nodesource.com/setup_lts.x | bash &>>$LOGFILE
-validate $? "Installing NodeJS via Nodesource"
+VALIDATE $? "Installing NodeJS via Nodesource"
 
 yum install nodejs -y &>>$LOGFILE
-validate $? "installing nodeJs
+VALIDATE $? "installing nodeJs"
 
 useradd roboshop &>>$LOGFILE
-validate $? "Creating User roboshop"
+VALIDATE $? "Creating User roboshop"
 
 mkdir /app &>> $LOGFILE
 
-validate $? "Creating App Directory"
+VALIDATE $? "Creating App Directory"
 
 
 cd /app &>>$LOGFILE
 
-validate $? "change directory"
+VALIDATE $? "change directory"
 
 curl -L -o /tmp/user.zip https://roboshop-builds.s3.amazonaws.com/user.zip &>>$LOGFILE
 
-validate $? "Downloading RoboShop User Build"
+VALIDATE $? "Downloading RoboShop User Build"
 
 cd /app 
 
-validate $? "Change to app dir and unpack the zip file"
+VALIDATE $? "Change to app dir and unpack the zip file"
 
 unzip -q /tmp/user.zip &>>$LOGFILE
-validate $? "unzipping"
+VALIDATE $? "unzipping"
 
 cd /app 
-validate $? "changing  back to app folder"
+VALIDATE $? "changing  back to app folder"
 
 npm install &>>$LOGFILE
-validate $? "Running npm install in app folder"
+VALIDATE $? "Running npm install in app folder"
 
 cp /home/centos/projects/user.service  /etc/systemd/system/user.service &>>$LOGFILE
-validate $? "Copy user service to systemd location"
+VALIDATE $? "Copy user service to systemd location"
 
 systemctl daemon-reload &>>$LOGFILE
-validate $? "reload"
+VALIDATE $? "reload"
 
 systemctl enable user &>>$LOGFILE
-validate $? "enable"
+VALIDATE $? "enable"
 
 systemctl start user &>>$LOGFILE
-validate  $? "Starting user service"
+VALIDATE  $? "Starting user service"
 
 cp /home/centos/projects/mongo.repo /etc/yum.repos.d/mongo.repo
-validate $? "coping"
+VALIDATE $? "coping"
 
 yum install mongodb-org-shell -y &>>$LOGFILE
-validate $? "Install MongoDB shell"
+VALIDATE $? "Install MongoDB shell"
 
 mongo --host mongodb.sssankar.site </app/schema/user.js &>>$LOGFILE
-validate $? "Creating DB and Collections using mongo script"
+VALIDATE $? "Creating DB and Collections using mongo script"

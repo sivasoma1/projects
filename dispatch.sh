@@ -10,7 +10,7 @@ R="\e[31m"
 G="\e[32m"
 N="\e[0m"
 
-# this function should validate the previous command and inform user it is success or failure
+# this function should VALIDATE the previous command and inform user it is success or failure
 VALIDATE(){
     #$1 --> it will receive the argument1
     if [ $1 -ne 0 ]
@@ -34,62 +34,62 @@ fi
 
 yum install golang -y &>>$LOGFILE
 
-validate $? "installing golang "
+VALIDATE $? "installing golang "
 
 useradd roboshop &>>$LOGFILE
 
-validate $? "creating an user"
+VALIDATE $? "creating an user"
 
 mkdir /app &>>$LOGFILE
-validate $? "creating a directory"
+VALIDATE $? "creating a directory"
 
 curl -L -o /tmp/dispatch.zip https://roboshop-builds.s3.amazonaws.com/dispatch.zip &>>$LOGFILE
-validate $? "downloading dispatch"
+VALIDATE $? "downloading dispatch"
 
 cd /app &>>$LOGFILE 
-validate $? "creating a directory"
+VALIDATE $? "creating a directory"
 
 unzip /tmp/dispatch.zip &>>$LOGFILE
 
-validate $? "extracting the zip file"
+VALIDATE $? "extracting the zip file"
 
 cd /app &>>$LOGFILE
-validate $? "re switching to that directory"
+VALIDATE $? "re switching to that directory"
 
 go mod init dispatch &>>$LOGFILE
 validae $? "init"
 
 go get &>>$LOGFILE
 
-validate $? "get"
+VALIDATE $? "get"
 
 go build &>>$LOGFILE
 
-validate $? "building the application"
+VALIDATE $? "building the application"
 
 systemctl daemon-reload &>>$LOGFILE
-validate $? "To load the service"
+VALIDATE $? "To load the service"
 
 systemctl enable dispatch &>>$LOGFILE
 
-validate $?  "Enable the service at startup" 
+VALIDATE $?  "Enable the service at startup" 
 
 systemctl start dispatch &>>$LOGFILE
 
-validate  $? "Starting the service"
+VALIDATE  $? "Starting the service"
 
 cp /home/centos/projects/dispatch.service /etc/systemd/system/dispatch.service &>>$LOGFILE
 
-validate $? "coping"
+VALIDATE $? "coping"
 
 systemctl daemon-reload &>>$LOGFILE
 
-validate $? "loading"
+VALIDATE $? "loading"
 
 systemctl enable dispatch &>>$LOGFILE 
 
-validate $? "enbale"
+VALIDATE $? "enbale"
 
 systemctl start dispatch &>>$LOGFILE
-validate $? "starting"
+VALIDATE $? "starting"
 

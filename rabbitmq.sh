@@ -10,8 +10,8 @@ R="\e[31m"
 G="\e[32m"
 N="\e[0m"
 
-# this function should validate the previous command and inform user it is success or failure
-VALIDATE(){
+# this function should val the previous command and inform user it is success or failure
+val(){
     #$1 --> it will receive the argument1
     if [ $1 -ne 0 ]
     then
@@ -33,16 +33,16 @@ then
 fi
 
 curl -s https://packagecloud.io/install/repositories/rabbitmq/erlang/script.rpm.sh &>>$LOGFILE| bash
-validate $? "downloading  rabbitMQ repo script"
+val $? "downloading  rabbitMQ repo script"
 curl -s https://packagecloud.io/install/repositories/rabbitmq/rabbitmq-server/script.rpm.sh | bash &>>$LOGFILE
-validate $? "downloading  rabbitMQ repo script"
+val $? "downloading  rabbitMQ repo script"
 yum install rabbitmq-server -y  &>>$LOGFILE
-validate $? "Installing RabbitMQ Server"
+VALIDATE $? "Installing RabbitMQ Server"
 systemctl enable rabbitmq-server &>>$LOGFILE
-validate $? "enabling"
+val $? "enabling"
 systemctl start rabbitmq-server &>>$LOGFILE
-validate $? "starting"
+val $? "starting"
 rabbitmqctl add_user roboshop roboshop123 &>>$LOGFILE
-validate $? "creating user and passwd"
+val $? "creating user and passwd"
 rabbitmqctl set_permissions -p / roboshop ".*" ".*" ".*" &>>$LOGFILE
-validate $? "permissions"
+val $? "permissions"

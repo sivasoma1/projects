@@ -31,46 +31,46 @@ VALIDATE(){
 
 
 curl -sL https://rpm.nodesource.com/setup_lts.x | bash &>>$LOGFILE
-validate $? "NodeJS Installation"
+VALIDATE $? "NodeJS Installation"
 
 yum install nodejs -y &>>$LOGFILE
-validate $? "Install NodeJS"
+VALIDATE $? "Install NodeJS"
 
 useradd roboshop &>>$LOGFILE
-validate $? "user creating"
+VALIDATE $? "user creating"
 
 mkdir /app &>>$LOGFILE
-validate $? "create a file"
+VALIDATE $? "create a file"
 
 curl -o /tmp/catalogue.zip https://roboshop-builds.s3.amazonaws.com/catalogue.zip &>>$LOGFILE
-validate $? "dowmloading the artifacts"
+VALIDATE $? "dowmloading the artifacts"
 
 cd /app &>>$LOGFILE
-validate $? "moving to the  app directory"
+VALIDATE $? "moving to the  app directory"
 
 unzip /tmp/catalogue.zip &>>$LOGFILE
-validate $? "unzipping the file"
+VALIDATE $? "unzipping the file"
 
 cd /app &>>$LOGFILE
-validate $?
+VALIDATE $?
 
 npm install &>>$LOGFILE
-validate $? "installing the packages"
+VALIDATE $? "installing the packages"
 
 cp /home/centos/projects/catalogue.service /etc/systemd/system/catalogue.service &>>$LOGFILE
-validate $? "coping"
+VALIDATE $? "coping"
 systemctl daemon-reload &>>$LOGFILE
-validate $? " reloading"
+VALIDATE $? " reloading"
 systemctl enable catalogue &>>$LOGFILE
-validate $? "enabling"
+VALIDATE $? "enabling"
 systemctl start catalogue &>>$LOGFILE
-validate $? "starting"
+VALIDATE $? "starting"
 
 cp /home/centos/projects/mongo.repo /etc/yum.repos.d/mongo.repo &>>$LOGFILE
-validate $?  "adding mongo repo"
+VALIDATE $?  "adding mongo repo"
 
 yum install mongodb-org-shell -y &>>$LOGFILE
-validate $? "installing"
+VALIDATE $? "installing"
 
 mongo --host mongodb.sssankar.site </app/schema/catalogue.js &>>$LOGFILE
-validate $? "connecting"
+VALIDATE $? "connecting"

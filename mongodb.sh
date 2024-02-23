@@ -10,7 +10,7 @@ R="\e[31m"
 G="\e[32m"
 N="\e[0m"
 
-# this function should validate the previous command and inform user it is success or failure
+# this function should VALIDATE the previous command and inform user it is success or failure
 VALIDATE(){
     #$1 --> it will receive the argument1
     if [ $1 -ne 0 ]
@@ -34,26 +34,26 @@ fi
 
 cp /home/centos/projects/mongo.repo vim /etc/yum.repos.d/mongo.repo &>>$LOGFILE
 
-validate $? "cpopingy the mongo.repo file"
+VALIDATE $? "cpopingy the mongo.repo file"
 
 yum install mongodb-org -y  &>>$LOGFILE
 
-validate $? "installing mongodb"
+VALIDATE $? "installing mongodb"
 
 systemctl enable mongod &>>$LOGFILE
 
 
-validate $? "enabling mongodb"
+VALIDATE $? "enabling mongodb"
 
 systemctl start mongod &>>$LOGFILE
 
-validate $? "starting mongodb"
+VALIDATE $? "starting mongodb"
 
 sed -i '/s/127.0.0.1/0.0.0.0/g' /etc/mongod.conf &>>$LOGFILE
 
-validate $? " updating"
+VALIDATE $? " updating"
 
 
 systemctl restart mongod &>>$LOGFILE
 
-validate $? "restarting"
+VALIDATE $? "restarting"

@@ -10,7 +10,7 @@ R="\e[31m"
 G="\e[32m"
 N="\e[0m"
 
-# this function should validate the previous command and inform user it is success or failure
+# this function should VALIDATE the previous command and inform user it is success or failure
 VALIDATE(){
     #$1 --> it will receive the argument1
     if [ $1 -ne 0 ]
@@ -34,24 +34,24 @@ fi
 
 yum install maven -y &>>$LOGFILE
 
-validate $? "installing"
+VALIDATE $? "installing"
 
 useradd roboshop &>>$LOGFILE
-validate $? "creating user"
+VALIDATE $? "creating user"
 
 mkdir /app &>>$LOGFILE
-validate $? "creating app directory"
+VALIDATE $? "creating app directory"
 
 curl -L -o /tmp/shipping.zip https://roboshop-builds.s3.amazonaws.com/shipping.zip  &>>$LOGFILE
-validate $? "downloading shipping module"
+VALIDATE $? "downloading shipping module"
 cd /app &>>$LOGFILE
-validate $? "change directory"
+VALIDATE $? "change directory"
 
 unzip /tmp/shipping.zip -d /app &>>$LOGFILE
-validate $? "extracting shipping package"
+VALIDATE $? "extracting shipping package"
 
 cd /app &>>$LOGFILE
-validate $? "change directory to app directory"
+VALIDATE $? "change directory to app directory"
 
 mvn clean package &>>$LOGFILE
 
@@ -59,14 +59,14 @@ mv target/shipping-1.0.jar shipping.jar
 
 
 cp /home/centos/projects/shipping.service /etc/systemd/system/shipping.service &>>$LOGFILE
-validate $? "copy service file"
+VALIDATE $? "copy service file"
 
 systemctl daemon-reload &>>$LOGFILE
-validate $? "deamon"
+VALIDATE $? "deamon"
 
 systemctl enable shipping &>>$LOGFILE
-validate $? "enable"
+VALIDATE $? "enable"
 
 systemctl start shipping &>>$LOGFILE
-validate $? "starting"
+VALIDATE $? "starting"
 

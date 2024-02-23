@@ -10,7 +10,7 @@ R="\e[31m"
 G="\e[32m"
 N="\e[0m"
 
-# this function should validate the previous command and inform user it is success or failure
+# this function should VALIDATE the previous command and inform user it is success or failure
 VALIDATE(){
     #$1 --> it will receive the argument1
     if [ $1 -ne 0 ]
@@ -35,39 +35,39 @@ fi
 
 curl -sL https://rpm.nodesource.com/setup_lts.x | bash &>>$LOGFILE
 
-validate $?  "Installing NodeJS via Nodesource"
+VALIDATE $?  "Installing NodeJS via Nodesource"
 
 yum install nodejs -y &>>$LOGFILE
 
-validate  $?  "Installing NodeJS from YUM repository"
+VALIDATE  $?  "Installing NodeJS from YUM repository"
 
 useradd roboshop &>>$LOGFILE
 
-validate $? "adding roboshop user"
+VALIDATE $? "adding roboshop user"
 
 mkdir /app &>>$LOGFILE
 
 
-validate $? "creating app directory"
+VALIDATE $? "creating app directory"
 
 curl -L -o /tmp/cart.zip https://roboshop-builds.s3.amazonaws.com/cart.zip &>>$LOGFILE
-validate $? "Downloading cart source code"
+VALIDATE $? "Downloading cart source code"
 
 cd /app  &>>$LOGFILE
-validate $? "moving"
+VALIDATE $? "moving"
 
 npm install &>>$LOGFILE
-validate $? "Running npm install in the app folder"
+VALIDATE $? "Running npm install in the app folder"
 
 cp /home/centos/projects/cart.service /etc/systemd/system/cart.service &>>LOGFILE
-validate $? "moving"
+VALIDATE $? "moving"
 
 
 systemctl daemon-reload &>>$logfile
-validate $? "reloading"
+VALIDATE $? "reloading"
 
 systemctl enable cart &>>$logfile
-validate $? "enabling"
+VALIDATE $? "enabling"
 
 systemctl start cart &>>$logfile
-validate $? "starting"
+VALIDATE $? "starting"

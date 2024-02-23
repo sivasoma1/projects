@@ -44,8 +44,6 @@ systemctl start nginx &>>$LOGFILE
 
 VALIDATE $? "starting nginx"
 
-
-
 rm -rf /usr/share/nginx/html/* &>>$LOGFILE
 VALIDATE $? "removing the default html files"
 
