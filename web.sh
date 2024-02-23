@@ -67,4 +67,4 @@ validate $? "coping roboshop.config"
 
 systemctl restart nginx &>>$LOGFILE
 
-$validate $? "restarting"
+validate $? "restarting"
