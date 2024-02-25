@@ -41,7 +41,13 @@ yum install nodejs -y &>>$LOGFILE
 
 VALIDATE  $?  "Installing NodeJS from YUM repository"
 
-useradd roboshop &>>$LOGFILE
+if [ $1 -eq 0 ];
+    then 
+        "echo file is already exists"
+        exit 1
+    else 
+        useradd roboshop &>>$LOGFILE
+    fi
 
 VALIDATE $? "adding roboshop user"
 

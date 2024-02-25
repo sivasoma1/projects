@@ -47,7 +47,7 @@ yum install redis -y &>>$LOGFILE
 VALIDATE $? "installing"
 
 
-sed -i '/s/127.0.0.1/0.0.0.0/g' /etc/redis.conf /etc/redis/redis.conf &>>$LOGFILE
+sed -i 's/127.0.0.1/0.0.0.0/g' /etc/redis.conf /etc/redis/redis.conf &>>$LOGFILE
 
 VALIDATE $? "changing bind address to 0.0.0.0 in config file"
 

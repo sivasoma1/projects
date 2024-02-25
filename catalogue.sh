@@ -46,7 +46,7 @@ else
 fi
 
 
-mkdir /app &>>$LOGFILE
+mkdir -p /app &>>$LOGFILE
 VALIDATE $? "create a file"
 
 curl -o /tmp/catalogue.zip https://roboshop-builds.s3.amazonaws.com/catalogue.zip &>>$LOGFILE
@@ -66,10 +66,13 @@ VALIDATE $? "installing the packages"
 
 cp /home/centos/projects/catalogue.service /etc/systemd/system/catalogue.service &>>$LOGFILE
 VALIDATE $? "coping"
+
 systemctl daemon-reload &>>$LOGFILE
 VALIDATE $? " reloading"
+
 systemctl enable catalogue &>>$LOGFILE
 VALIDATE $? "enabling"
+
 systemctl start catalogue &>>$LOGFILE
 VALIDATE $? "starting"
 

@@ -10,8 +10,8 @@ R="\e[31m"
 G="\e[32m"
 N="\e[0m"
 
-# this function should val the previous command and inform user it is success or failure
-val(){
+# this function should VALIDATE the previous command and inform user it is success or failure
+VALIDATE(){
     #$1 --> it will receive the argument1
     if [ $1 -ne 0 ]
     then
@@ -32,17 +32,23 @@ then
 #     echo "INFO:: You are root user"
 fi
 
-curl -s https://packagecloud.io/install/repositories/rabbitmq/erlang/script.rpm.sh &>>$LOGFILE| bash
-val $? "downloading  rabbitMQ repo script"
+curl -s https://packagecloud.io/install/repositories/rabbitmq/erlang/script.rpm.sh | bash &>>$LOGFILE
+VALIDATE $? "downloading  rabbitMQ repo script"
+
 curl -s https://packagecloud.io/install/repositories/rabbitmq/rabbitmq-server/script.rpm.sh | bash &>>$LOGFILE
-val $? "downloading  rabbitMQ repo script"
+VALIDATE $? "downloading  rabbitMQ repo script"
+
 yum install rabbitmq-server -y  &>>$LOGFILE
-VALIDATE $? "Installing RabbitMQ Server"
+VALIDATEIDATE $? "Installing RabbitMQ Server"
+
 systemctl enable rabbitmq-server &>>$LOGFILE
-val $? "enabling"
+VALIDATEIDATE $? "enabling"
+
 systemctl start rabbitmq-server &>>$LOGFILE
-val $? "starting"
+VALIDATE $? "starting"
+
 rabbitmqctl add_user roboshop roboshop123 &>>$LOGFILE
-val $? "creating user and passwd"
+VALIDATE $? "creating user and passwd"
+
 rabbitmqctl set_permissions -p / roboshop ".*" ".*" ".*" &>>$LOGFILE
-val $? "permissions"
+VALIDATE $? "permissions"
