@@ -57,11 +57,13 @@ fi
 curl -o /tmp/catalogue.zip https://roboshop-builds.s3.amazonaws.com/catalogue.zip &>>$LOGFILE
 VALIDATE $? "dowmloading the artifacts"
 
-unzip /tmp/catalogue.zip &>>$LOGFILE
+cd /app &>>$LOGFILE
+VALIDATE $? "changing directory"
+
+
+unzip -q /tmp/catalogue.zip &>>$LOGFILE
 VALIDATE $? "unzipping the file"
 
-cd /app &>>$LOGFILE
-VALIDATE $?
 
 npm install &>>$LOGFILE
 VALIDATE $? "installing the packages"
