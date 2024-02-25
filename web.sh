@@ -40,10 +40,6 @@ systemctl enable nginx &>>$LOGFILE
 
 VALIDATE $? "enabling the nginx"
 
-systemctl start nginx &>>$LOGFILE
-
-VALIDATE $? "starting nginx"
-
 rm -rf /usr/share/nginx/html/* &>>$LOGFILE
 VALIDATE $? "removing the default html files"
 
@@ -62,6 +58,10 @@ VALIDATE $? "unzipping"
 cp /home/centos/projects/roboshop.conf /etc/nginx/default.d/roboshop.conf &>>$LOGFILE
 VALIDATE $? "coping roboshop.config"
 
+
+systemctl start nginx &>>$LOGFILE
+
+VALIDATE $? "starting nginx"
 
 systemctl restart nginx &>>$LOGFILE
 
