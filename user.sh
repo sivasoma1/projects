@@ -58,7 +58,7 @@ cd /app
 
 VALIDATE $? "Change to app dir and unpack the zip file"
 
-unzip -q /tmp/user.zip &>>$LOGFILE
+unzip -o /tmp/user.zip &>>$LOGFILE
 VALIDATE $? "unzipping"
 
 cd /app 

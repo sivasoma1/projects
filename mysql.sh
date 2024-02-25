@@ -36,7 +36,7 @@ yum module disable mysql -y &>>$LOGFILE
 
 VALIDATE $? "Disabling MySQL YUM Module"
 
-cp /home/centos/projects/mysql.repo /etc/yum.repos.d/mysql.repo &>>$LOGFILE
+cp /home/centos/projects/mysql.repo /etc/yum.repos.d/mysql.repo 
 VALIDATE $? "coping"
 
 yum install mysql-community-server -y &>>LOGFILE
@@ -50,8 +50,8 @@ VALIDATE $? "enable"
 systemctl start mysqld &>>LOGFILE
 VALIDATE $? "starting"
 
-mysql_secure_installation --set-root-pass RoboShop@1
+mysql_secure_installation --set-root-pass RoboShop@1 &>>$LOGFILE
 VALIDATE $? "Setting root password for MySQL Server"
 
-mysql -uroot -pRoboShop@1
+mysql -uroot -pRoboShop@1 &>>$LOGFILE
 VALIDATE $? "Logging into MySQL as root with the new password"

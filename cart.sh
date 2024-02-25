@@ -47,20 +47,26 @@ if [ $1 -eq 0 ];
         exit 1
     else 
         useradd roboshop &>>$LOGFILE
-    fi
+fi
 
 VALIDATE $? "adding roboshop user"
 
-mkdir /app &>>$LOGFILE
-
-
+if [ $1 -eq 0 ];
+    then
+        VALIDATE $? "/app is already exists"
+    else 
+        mkdir /app &>>$LOGFILE
+fi
 VALIDATE $? "creating app directory"
+
 
 curl -L -o /tmp/cart.zip https://roboshop-builds.s3.amazonaws.com/cart.zip &>>$LOGFILE
 VALIDATE $? "Downloading cart source code"
 
 cd /app  &>>$LOGFILE
 VALIDATE $? "moving"
+
+
 
 npm install &>>$LOGFILE
 VALIDATE $? "Running npm install in the app folder"

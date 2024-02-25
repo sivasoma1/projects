@@ -47,7 +47,7 @@ VALIDATE $? "downloading shipping module"
 cd /app &>>$LOGFILE
 VALIDATE $? "change directory"
 
-unzip /tmp/shipping.zip -d /app &>>$LOGFILE
+unzip -o /tmp/shipping.zip -d /app &>>$LOGFILE
 VALIDATE $? "extracting shipping package"
 
 cd /app &>>$LOGFILE

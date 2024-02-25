@@ -36,8 +36,14 @@ yum install golang -y &>>$LOGFILE
 
 VALIDATE $? "installing golang "
 
-useradd roboshop &>>$LOGFILE
+if [ $1 -eq 0 ];
+then
+    VALIDATE $1 "user already exists" &>>$LOGFILE
 
+else
+
+    useradd roboshop &>>$LOGFILE
+fi
 VALIDATE $? "creating an user"
 
 mkdir /app &>>$LOGFILE
@@ -49,7 +55,7 @@ VALIDATE $? "downloading dispatch"
 cd /app &>>$LOGFILE 
 VALIDATE $? "creating a directory"
 
-unzip /tmp/dispatch.zip &>>$LOGFILE
+unzip -o /tmp/dispatch.zip &>>$LOGFILE
 
 VALIDATE $? "extracting the zip file"
 

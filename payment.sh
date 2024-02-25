@@ -49,7 +49,7 @@ VALIDATE $? "downloading payment module"
 cd /app &>>$LOGFILE
 VALIDATE $? "changing to the app dir"
 
-unzip /tmp/payment.zip &>>$LOGFILE
+unzip -o /tmp/payment.zip &>>$LOGFILE
 VALIDATE $? "unzipping"
 
 cd /app &>>$LOGFILE
