@@ -57,10 +57,7 @@ fi
 curl -o /tmp/catalogue.zip https://roboshop-builds.s3.amazonaws.com/catalogue.zip &>>$LOGFILE
 VALIDATE $? "dowmloading the artifacts"
 
-cd /app &>>$LOGFILE
-VALIDATE $? "moving to the  app directory"
-
-unzip ~/tmp/catalogue.zip &>>$LOGFILE
+unzip /tmp/catalogue.zip &>>$LOGFILE
 VALIDATE $? "unzipping the file"
 
 cd /app &>>$LOGFILE
