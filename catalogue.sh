@@ -86,5 +86,5 @@ VALIDATE $?  "adding mongo repo"
 yum install mongodb-org-shell -y &>>$LOGFILE
 VALIDATE $? "installing"
 
-mongo --host mongodb.sssankar.site </app/schema/catalogue.js &>>$LOGFILE
+mongo --host mongodb.ssshankar.site </app/schema/catalogue.js &>>$LOGFILE
 VALIDATE $? "connecting"
