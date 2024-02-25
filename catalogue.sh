@@ -46,8 +46,13 @@ else
 fi
 
 
-mkdir -p /app &>>$LOGFILE
-VALIDATE $? "create a file"
+if [ $? -eq 0 ];
+then
+    VALIDATE $? "directory exists"
+else
+    mkdir -p /app &>>$LOGFILE
+    VALIDATE $? "create a directory"
+fi
 
 curl -o /tmp/catalogue.zip https://roboshop-builds.s3.amazonaws.com/catalogue.zip &>>$LOGFILE
 VALIDATE $? "dowmloading the artifacts"
