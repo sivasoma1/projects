@@ -69,6 +69,12 @@ cd /app &>>$LOGFILE
 VALIDATE $? "moving"
 
 
+unzip -o /tmp/cart.zip &>>$LOGFILE
+
+VALIDATE $? "unzipping cart"
+
+
+
 
 npm install &>>$LOGFILE
 VALIDATE $? "Running npm install in the app folder"
