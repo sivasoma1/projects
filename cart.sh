@@ -65,7 +65,7 @@ fi
 curl -L -o /tmp/cart.zip https://roboshop-builds.s3.amazonaws.com/cart.zip &>>$LOGFILE
 VALIDATE $? "Downloading cart source code"
 
-cd /app  &>>$LOGFILE
+cd /app &>>$LOGFILE
 VALIDATE $? "moving"
 
 

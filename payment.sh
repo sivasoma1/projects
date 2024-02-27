@@ -35,12 +35,26 @@ fi
 yum install python36 gcc python3-devel -y &>>$LOGFILE
 VALIDATE $? "installing python"
 
-useradd roboshop &>>$LOGFILE
-VALIDATE $? "useradd"
+id roboshop &>>$LOGFILE
+if [ $? -eq 0 ];
+    then
 
-mkdir /app &>>$LOGFILE
 
-VALIDATE $? "creating an app directory"
+        VALIDATE $?  "User roboshop already exists,
+
+    else
+        useradd roboshop &>>$LOGFILE
+        VALIDATE $? "useradd"
+fi
+
+if [ $? -eq 0 ];
+    then
+        validate $? "Adding a directory already"
+    else
+        mkdir -p /app &>>$LOGFILE
+
+        VALIDATE $? "creating an app directory"
+fi
 
 curl -L -o /tmp/payment.zip https://roboshop-builds.s3.amazonaws.com/payment.zip &>>$LOGFILE
 
