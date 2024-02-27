@@ -38,13 +38,24 @@ VALIDATE $? "Installing NodeJS via Nodesource"
 yum install nodejs -y &>>$LOGFILE
 VALIDATE $? "installing nodeJs"
 
-useradd roboshop &>>$LOGFILE
-VALIDATE $? "Creating User roboshop"
+id roboshop &>>$LOGFILE
+if [ $? -eq 0 ];
+    then 
+        VALIDATE $? "file is already exists"
+    
+    else 
+        useradd roboshop &>>$LOGFILE
+fi
 
-mkdir /app &>> $LOGFILE
+VALIDATE $? "adding roboshop user"
 
-VALIDATE $? "Creating App Directory"
-
+if [ $? -eq 0 ];
+    then
+        VALIDATE $? "/app is already exists"
+    else 
+        mkdir -p /app &>>$LOGFILE
+        VALIDATE $? "creating app directory"
+fi
 
 cd /app &>>$LOGFILE
 

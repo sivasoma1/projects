@@ -36,18 +36,24 @@ yum install golang -y &>>$LOGFILE
 
 VALIDATE $? "installing golang "
 
-if [ $1 -eq 0 ];
-then
-    VALIDATE $1 "user already exists" &>>$LOGFILE
-
-else
-
-    useradd roboshop &>>$LOGFILE
+id roboshop &>>$LOGFILE
+if [ $? -eq 0 ];
+    then 
+        VALIDATE $? "file is already exists"
+    
+    else 
+        useradd roboshop &>>$LOGFILE
 fi
-VALIDATE $? "creating an user"
 
-mkdir /app &>>$LOGFILE
-VALIDATE $? "creating a directory"
+VALIDATE $? "adding roboshop user"
+
+if [ $? -eq 0 ];
+    then
+        VALIDATE $? "/app is already exists"
+    else 
+        mkdir -p /app &>>$LOGFILE
+        VALIDATE $? "creating app directory"
+fi
 
 curl -L -o /tmp/dispatch.zip https://roboshop-builds.s3.amazonaws.com/dispatch.zip &>>$LOGFILE
 VALIDATE $? "downloading dispatch"
