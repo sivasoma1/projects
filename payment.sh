@@ -40,7 +40,7 @@ if [ $? -eq 0 ];
     then
 
 
-        VALIDATE $?  "User roboshop already exists,
+        VALIDATE $?  "User roboshop already exists,"
 
     else
         useradd roboshop &>>$LOGFILE
