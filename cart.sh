@@ -57,38 +57,38 @@ if [ $? -eq 0 ];
         VALIDATE $? "/app is already exists"
         exit 1
     else 
-        mkdir /app &>>$LOGFILE
+        mkdir /app &>> $LOGFILE
         VALIDATE $? "creating app directory"
 fi
 
 
 
-curl -L -o /tmp/cart.zip https://roboshop-builds.s3.amazonaws.com/cart.zip &>>$LOGFILE
+curl -L -o /tmp/cart.zip https://roboshop-builds.s3.amazonaws.com/cart.zip &>> $LOGFILE
 VALIDATE $? "Downloading cart source code"
 
-cd /app &>>$LOGFILE
+cd /app &>> $LOGFILE
 VALIDATE $? "moving"
 
 
-unzip -o /tmp/cart.zip &>>$LOGFILE
+unzip -o /tmp/cart.zip &>> $LOGFILE
 
 VALIDATE $? "unzipping cart"
 
 
 
 
-npm install &>>$LOGFILE
+npm install &>> $LOGFILE
 VALIDATE $? "Running npm install in the app folder"
 
-cp /home/centos/projects/cart.service /etc/systemd/system/cart.service &>>LOGFILE
+cp /home/centos/projects/cart.service /etc/systemd/system/cart.service &>> $LOGFILE
 VALIDATE $? "moving"
 
 
-systemctl daemon-reload &>>$logfile
+systemctl daemon-reload &>> $logfile
 VALIDATE $? "reloading"
 
-systemctl enable cart &>>$logfile
+systemctl enable cart &>> $logfile
 VALIDATE $? "enabling"
 
-systemctl start cart &>>$logfile
+systemctl start cart &>> $logfile
 VALIDATE $? "starting"
