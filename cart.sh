@@ -55,6 +55,7 @@ VALIDATE $? "adding roboshop user"
 if [ $? -eq 0 ];
     then
         VALIDATE $? "/app is already exists"
+        exit 1
     else 
         mkdir /app &>>$LOGFILE
         VALIDATE $? "creating app directory"
