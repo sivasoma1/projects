@@ -16,7 +16,7 @@ VALIDATE(){
     if [ $1 -ne 0 ]
     then
         echo -e "$2 ... $R FAILURE $N"
-        exit 
+        exit 1
     else
         echo -e "$2 ... $G SUCCESS $N"
     fi
@@ -56,7 +56,7 @@ if [ $? -eq 0 ];
     then
         VALIDATE $? "/app is already exists"
     else 
-        mkdir -p /app &>>$LOGFILE
+        mkdir /app &>>$LOGFILE
         VALIDATE $? "creating app directory"
 fi
 
