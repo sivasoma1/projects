@@ -52,12 +52,6 @@ if  [ $? -eq 0 ];
     then
         VALIDATE $? "User roboshop already exists."
     else
-    
-    
-    
-
-
-
         rabbitmqctl add_user roboshop roboshop123 &>>$LOGFILE
         VALIDATE $? "creating user and passwd"
 fi
