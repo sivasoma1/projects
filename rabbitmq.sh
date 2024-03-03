@@ -47,8 +47,20 @@ VALIDATEIDATE $? "enabling"
 systemctl start rabbitmq-server &>>$LOGFILE
 VALIDATE $? "starting"
 
-rabbitmqctl add_user roboshop roboshop123 &>>$LOGFILE
-VALIDATE $? "creating user and passwd"
+id roboshop &>>$LOGFILE
+if  [ $? -eq 0 ];
+    then
+        VALIDATE $? "User roboshop already exists."
+    else
+    
+    
+    
+
+
+
+        rabbitmqctl add_user roboshop roboshop123 &>>$LOGFILE
+        VALIDATE $? "creating user and passwd"
+fi
 
 rabbitmqctl set_permissions -p / roboshop ".*" ".*" ".*" &>>$LOGFILE
 VALIDATE $? "permissions"
