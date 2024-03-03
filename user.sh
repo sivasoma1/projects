@@ -97,4 +97,4 @@ yum install mongodb-org-shell -y &>>$LOGFILE
 VALIDATE $? "Install MongoDB shell"
 
 mongo --host mongodb.sssankar.site </app/schema/user.js &>>$LOGFILE
-VALIDATE $? "Creating DB and Collections using mongo script"
+VALIDATE $? "Creating DB and Collections using mongo script" 
