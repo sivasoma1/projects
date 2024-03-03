@@ -54,7 +54,7 @@ if [ $? -ne 0 ];
         VALIDATE $? "creating user and passwd"
         
     else
-        VALIDATE $? "User roboshop already exists."
+        VALIDATE $? "User roboshop already exists." &>>$LOGFILE
         
 fi
 
