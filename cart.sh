@@ -84,11 +84,11 @@ cp /home/centos/projects/cart.service /etc/systemd/system/cart.service &>> $LOGF
 VALIDATE $? "moving"
 
 
-systemctl daemon-reload &>> $logfile
+systemctl daemon-reload &>> $LOGFILE
 VALIDATE $? "reloading"
 
-systemctl enable cart &>> $logfile
+systemctl enable cart &>> $LOGFILE
 VALIDATE $? "enabling"
 
-systemctl start cart &>> $logfile
+systemctl start cart &>> $LOGFILE
 VALIDATE $? "starting"
