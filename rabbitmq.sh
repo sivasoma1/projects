@@ -60,3 +60,4 @@ fi
 
 rabbitmqctl set_permissions -p / roboshop ".*" ".*" ".*" &>>$LOGFILE
 VALIDATE $? "permissions"
+
