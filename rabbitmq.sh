@@ -48,12 +48,14 @@ systemctl start rabbitmq-server &>>$LOGFILE
 VALIDATE $? "starting"
 
 id roboshop &>>$LOGFILE
-if  [ $? -eq 0 ];
+if  [ $? -ne 0 ];
     then
-        VALIDATE $? "User roboshop already exists."
-    else
         rabbitmqctl add_user roboshop roboshop123 &>>$LOGFILE
         VALIDATE $? "creating user and passwd"
+        
+    else
+        VALIDATE $? "User roboshop already exists."
+        
 fi
 
 rabbitmqctl set_permissions -p / roboshop ".*" ".*" ".*" &>>$LOGFILE
