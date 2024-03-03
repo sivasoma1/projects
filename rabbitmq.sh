@@ -48,7 +48,7 @@ systemctl start rabbitmq-server &>>$LOGFILE
 VALIDATE $? "starting"
 
 id roboshop &>>$LOGFILE
-if  [ $? -ne 0 ];
+if [ $? -ne 0 ];
     then
         rabbitmqctl add_user roboshop roboshop123 &>>$LOGFILE
         VALIDATE $? "creating user and passwd"
