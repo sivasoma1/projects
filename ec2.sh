@@ -7,6 +7,14 @@ DOMAIN_NAME=ssshankar.site
 IMAGE_ID=ami-0f3c7d07486cad139
 
 
+for i in "${NAME[@]}"; do
+    # Check if the instance already exists
+    existing_instance=$(aws ec2 describe-instances --filters "Name=tag:Name,Values=$i" --query "Reservations[*].Instances[*].InstanceId" --output text)
+    if [ -n "$existing_instance" ]; then
+        echo "$i instance already exists: $existing_instance"
+        continue
+    fi
+
 # mysql and mongodb are in t3.medium, others are in t2.micro
 for i in "${NAME[@]}";
 do
@@ -14,6 +22,7 @@ do
     then
         
         INSTANCE_TYPE="t3.medium"
+
     else
         INSTANCE_TYPE="t2.micro"
     fi
@@ -26,7 +35,7 @@ do
     aws route53 change-resource-record-sets --hosted-zone-id Z07242593H082AXGG73OV --change-batch '
     {
             "Changes": [{
-            "Action": "CREATE",
+            "Action": "UPSERT",
                         "ResourceRecordSet": {
                             "Name": "'$i.$DOMAIN_NAME'",
                             "Type": "A",
