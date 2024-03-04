@@ -1,6 +1,7 @@
 #!/bin/bash
 
-NAME=("mongodb" "cart" "redis" "catalogue" "user" "payment" "dispatch" "web" "shipping" "mysql" "redis")
+# NAME=("mongodb" "cart" "redis" "catalogue" "user" "payment" "dispatch" "web" "shipping" "mysql" "redis")
+NAME=("web" "redis")
 INSTANCE_TYPE=""
 SECURITY_GROUP_ID=sg-012b40d35bddf900e
 DOMAIN_NAME=ssshankar.site
