@@ -10,9 +10,9 @@ HOSTED_ZONE_ID=Z07242593H082AXGG73OV
 # Loop through the instances
 for i in "${NAME[@]}"; do
     # Check if the instance already exists
-    existing_instance=$(aws ec2 describe-instances --filters "Name=tag:Name,Values=$i --query "Reservations[*].Instances[*].PrivateIpAddress" --output text)
+    existing_instance=$(aws ec2 describe-instances --filters "Name=tag:Name,Values=$i" --query "Reservations[*].Instances[*].InstanceId" --output text)
     if [ -n "$existing_instance" ]; then
-        echo "$i instance already exists: $existing_instance $IP_ADDRESS"
+        echo "$i instance already exists: $existing_instance"
         continue
     fi
 
