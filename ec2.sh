@@ -12,7 +12,7 @@ for i in "${NAME[@]}"; do
     # Check if the instance already exists
     existing_instance=$(aws ec2 describe-instances --filters "Name=tag:Name,Values=$i" | jq -r '.Instances[0].PrivateIpAddress')
     if [ -n "$existing_instance" ]; then
-        echo "$i instance already exists: $existing_instance"
+        echo "$i instance already exists: $existing_instance $IP_ADDRESS"
         continue
     fi
 
