@@ -8,7 +8,7 @@ IMAGE_ID=ami-0f3c7d07486cad139
 
 
 # mysql and mongodb are in t3.medium, others are in t2.micro
-for i in "$NAME[@]";
+for i in "${NAME[@]}";
 do
     if [ $i == "mysql" ] || [ $i == "mongodb" ]; 
     then
