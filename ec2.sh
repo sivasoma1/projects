@@ -1,7 +1,7 @@
 #!/bin/bash
 
-# NAME=("mongodb" "cart" "redis" "catalogue" "user" "payment" "dispatch" "web" "shipping" "mysql" "redis")
-NAME=("web" "redis")
+NAME=("mongodb" "cart" "redis" "catalogue" "user" "payment" "dispatch" "web" "shipping" "mysql" "redis")
+#NAME=("web" "redis")
 INSTANCE_TYPE=""
 SECURITY_GROUP_ID=sg-012b40d35bddf900e
 DOMAIN_NAME=ssshankar.site
@@ -9,14 +9,7 @@ IMAGE_ID=ami-0f3c7d07486cad139
 HOSTED_ZONE_ID=Z07242593H082AXGG73OV
 
 # Loop through the instances
-for i in "${NAME[@]}"; do
-    # Check if the instance already exists
-    existing_instance=$(aws ec2 describe-instances --filters "Name=tag:Name,Values=$i" --filters Name=instance-state-name,Values=running --query "Reservations[*].Instances[*].InstanceId" --output text)
-    if [ -n "$existing_instance" ]; then
-        echo "$i instance already exists: $existing_instance"
-        continue
-    fi
-
+for i in "$NAME[@]"; do
     # Determine instance type
     if [ "$i" == "mysql" ] || [ "$i" == "mongodb" ]; then
         INSTANCE_TYPE="t3.medium"
@@ -32,7 +25,7 @@ for i in "${NAME[@]}"; do
     # Update or create Route 53 record
     aws route53 change-resource-record-sets --hosted-zone-id $HOSTED_ZONE_ID --change-batch '{
         "Changes": [{
-            "Action": "UPSERT",
+            "Action": "CREATE",
             "ResourceRecordSet": {
                 "Name": "'$i.$DOMAIN_NAME'",
                 "Type": "A",
