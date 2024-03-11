@@ -9,7 +9,7 @@ IMAGE_ID=ami-0f3c7d07486cad139
 HOSTED_ZONE_ID=Z07242593H082AXGG73OV
 
 # Loop through the instances
-for i in "$NAME[@]"; do
+for i in "${NAME[@]}"; do
     # Determine instance type
     if [ "$i" == "mysql" ] || [ "$i" == "mongodb" ]; then
         INSTANCE_TYPE="t3.medium"
